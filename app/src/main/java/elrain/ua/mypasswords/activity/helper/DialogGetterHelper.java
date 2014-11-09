@@ -22,12 +22,11 @@ public final class DialogGetterHelper {
         }
     };
 
-    public static AlertDialog getFirstUserDialog(Activity context, DialogInterface.OnClickListener addListener, View view){
+    public static AlertDialog getFirstUserDialog(Activity context){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(view);
         builder.setTitle(R.string.dialog_title_create_user);
-        builder.setPositiveButton(context.getString(R.string.dialog_btn_create_user_text), addListener);
-        builder.setNegativeButton(context.getString(R.string.dialog_btn_cancel_text), CLOSE_LISTENER);
+        builder.setMessage(R.string.dialog_message_first_start);
+        builder.setNegativeButton(R.string.dialog_btn_ok_text, CLOSE_LISTENER);
         return builder.create();
     }
 }

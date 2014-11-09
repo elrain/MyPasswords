@@ -19,10 +19,10 @@ import elrain.ua.mypasswords.util.ScreenOrientationUtil;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
 
+    private static boolean isFirst = false;
     private Button mBtnLogin;
     private EditText mEtLogin;
     private EditText mEtPassword;
-    private static boolean isFirst = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,32 +35,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         if (PreferenceUtil.getLoginFromPref(LoginActivity.this).isEmpty())
             addFirstUser();
-        else
+        else{
             mEtLogin.setText(PreferenceUtil.getLoginFromPref(LoginActivity.this));
+            mEtPassword.requestFocus();
+        }
     }
 
     private void addFirstUser() {
-        LayoutInflater layoutInflater = LoginActivity.this.getLayoutInflater();
-        final View view = layoutInflater.inflate(R.layout.dialog_new_user, null);
-
-        DialogInterface.OnClickListener addListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                EditText etLogin = (EditText) view.findViewById(R.id.etLogin);
-                EditText etPassword = (EditText) view.findViewById(R.id.etPassword);
-
-                if (etLogin.getText().toString().isEmpty())
-                    etLogin.setError(getString(R.string.act_login_form_error));
-                else if (etPassword.getText().toString().isEmpty())
-                    etPassword.setError(getString(R.string.act_login_form_error));
-                else {
-                    dialog.dismiss();
-                }
-
-            }
-        };
-
-        AlertDialog addUser = DialogGetterHelper.getFirstUserDialog(LoginActivity.this, addListener, view);
+        AlertDialog addUser = DialogGetterHelper.getFirstUserDialog(LoginActivity.this);
         addUser.show();
     }
 
