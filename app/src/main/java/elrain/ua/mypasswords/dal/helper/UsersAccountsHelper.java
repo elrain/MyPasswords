@@ -11,11 +11,11 @@ import elrain.ua.mypasswords.dal.MyPasswordsDBHelper;
  */
 public class UsersAccountsHelper {
 
-    public static final String TABLE = "accounts";
+    public static final String TABLE = "usersLogPass";
     public static final String ID = "_id";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
-    public static final String CREATE_TABLE = "CREATE TABLE " + TABLE + " ( " + ID + " INTEGER PRIMARY KEY, " + LOGIN + " VARCHAR(50), " + PASSWORD + " VARCHAR(50))";
+    private static final String CREATE_TABLE = "CREATE TABLE " + TABLE + " ( " + ID + " INTEGER PRIMARY KEY, " + LOGIN + " VARCHAR(50), " + PASSWORD + " VARCHAR(50))";
 
     public static void createTable(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLE);
@@ -34,14 +34,14 @@ public class UsersAccountsHelper {
         }
     }
 
-    public static void insertUserCredentials(MyPasswordsDBHelper helper, String login, String password) {
+    public static long insertUserCredentials(MyPasswordsDBHelper helper, String login, String password) {
         if (isCredentialsRight(helper, login, password)) {
-            return;
+            return -1;
         }
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(LOGIN, login);
         cv.put(PASSWORD, password);
-        db.insert(TABLE, null, cv);
+        return db.insert(TABLE, null, cv);
     }
 }

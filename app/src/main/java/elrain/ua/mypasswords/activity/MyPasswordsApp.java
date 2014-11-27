@@ -8,7 +8,7 @@ import java.util.List;
 import dagger.ObjectGraph;
 import elrain.ua.mypasswords.modules.AppContextModule;
 import elrain.ua.mypasswords.modules.MyPasswordsDBHelperModule;
-import elrain.ua.mypasswords.modules.TestModule;
+import elrain.ua.mypasswords.modules.UserPreferenceModule;
 
 /**
  * Created by Denis on 11/9/2014.
@@ -20,7 +20,7 @@ public class MyPasswordsApp extends Application {
     protected List<Object> getModules() {
         return Arrays.asList(
                 new AppContextModule(this),
-                new TestModule(),
+                new UserPreferenceModule(this),
                 new MyPasswordsDBHelperModule(this)
         );
     }

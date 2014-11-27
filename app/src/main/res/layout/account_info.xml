@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_main_account_name"
+            android:textColor="@color/act_text_color"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/act_default_margin"
+            android:layout_weight="12"
+            android:background="@drawable/act_login_textform_bg"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:singleLine="true"
+            android:textColor="@color/act_text_color"
+            android:textColorHint="@color/act_text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_login_hint_login"
+            android:textColor="@color/act_text_color"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/etLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/act_default_margin"
+            android:layout_weight="12"
+            android:background="@drawable/act_login_textform_bg"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:singleLine="true"
+            android:textColor="@color/act_text_color"
+            android:textColorHint="@color/act_text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_login_hint_password"
+            android:textColor="@color/act_text_color"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/act_default_margin"
+            android:layout_weight="12"
+            android:background="@drawable/act_login_textform_bg"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textColor="@color/act_text_color"
+            android:textColorHint="@color/act_text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_main_http_address"
+            android:textColor="@color/act_text_color"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/etHttpAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/act_default_margin"
+            android:layout_weight="12"
+            android:background="@drawable/act_login_textform_bg"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:singleLine="true"
+            android:textColor="@color/act_text_color"
+            android:textColorHint="@color/act_text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/act_default_margin"
+            android:layout_weight="1"
+            android:background="@drawable/act_login_textform_bg"
+            android:text="@string/act_main_btn_add_new_account"
+            android:textColor="@color/act_text_color"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/act_default_margin"
+            android:layout_weight="1"
+            android:background="@drawable/act_login_textform_bg"
+            android:text="@string/dialog_btn_cancel_text"
+            android:textColor="@color/act_text_color"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import javax.inject.Singleton;
 
+import elrain.ua.mypasswords.dal.helper.AccountsHelper;
 import elrain.ua.mypasswords.dal.helper.UsersAccountsHelper;
 
 /**
@@ -33,6 +34,7 @@ public class MyPasswordsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         UsersAccountsHelper.createTable(sqLiteDatabase);
+        AccountsHelper.createTable(sqLiteDatabase);
     }
 
     @Override

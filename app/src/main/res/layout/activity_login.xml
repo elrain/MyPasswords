@@ -59,6 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/act_default_margin"
                     android:layout_weight="12"
+                    android:singleLine="true"
                     android:background="@drawable/act_login_textform_bg"
                     android:paddingLeft="@dimen/act_default_margin"
                     android:textColor="@color/act_text_color"
@@ -91,6 +92,7 @@
                     android:layout_weight="12"
                     android:background="@drawable/act_login_textform_bg"
                     android:inputType="textPassword"
+                    android:singleLine="true"
                     android:paddingLeft="@dimen/act_default_margin"
                     android:textColor="@color/act_text_color"
                     android:textColorHint="@color/act_text_color" />

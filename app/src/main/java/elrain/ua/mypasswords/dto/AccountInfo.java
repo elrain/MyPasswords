@@ -9,6 +9,15 @@ public class AccountInfo {
     private String mAccountLogin;
     private String mAccountPassword;
 
+    public AccountInfo(){}
+
+    public AccountInfo(String name, String login, String password, String http){
+        this.mHttpAddress = http;
+        this.mAccountName = name;
+        this.mAccountLogin = login;
+        this.mAccountPassword = password;
+    }
+
     public String getmHttpAddress() {
         return mHttpAddress;
     }

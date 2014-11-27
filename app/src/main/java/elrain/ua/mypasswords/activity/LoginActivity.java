@@ -12,10 +12,9 @@ import javax.inject.Inject;
 
 import elrain.ua.mypasswords.R;
 import elrain.ua.mypasswords.activity.helper.DialogGetterHelper;
-import elrain.ua.mypasswords.activity.helper.TestClass;
 import elrain.ua.mypasswords.dal.MyPasswordsDBHelper;
 import elrain.ua.mypasswords.dal.helper.UsersAccountsHelper;
-import elrain.ua.mypasswords.util.PreferenceUtil;
+import elrain.ua.mypasswords.util.UserPreferenceUtil;
 import elrain.ua.mypasswords.util.ScreenOrientationUtil;
 
 
@@ -29,7 +28,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Inject
     MyPasswordsDBHelper mDbHelper;
     @Inject
-    TestClass testClass;
+    UserPreferenceUtil mUserPreferenceUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +38,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         ScreenOrientationUtil.setScreenOrientation(LoginActivity.this);
 
         initInterface();
-        mIsFirst = PreferenceUtil.getLoginFromPref(LoginActivity.this).isEmpty();
+        mIsFirst = mUserPreferenceUtil.getLoginFromPref().isEmpty();
         if (mIsFirst) {
             addFirstUser();
         } else {
-            mEtLogin.setText(PreferenceUtil.getLoginFromPref(LoginActivity.this));
+            mEtLogin.setText(mUserPreferenceUtil.getLoginFromPref());
             mEtPassword.requestFocus();
         }
     }
@@ -77,7 +76,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                     else
                         doLoginWithoutInsertToDB(login, password);
 
-                    PreferenceUtil.setLoginToPref(LoginActivity.this, login);
+                    mUserPreferenceUtil.setLoginToPref(login);
                 }
                 break;
             default:
@@ -91,10 +90,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void openMainActivity() {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        this.finish();
     }
 
     private void doLoginAndInsertToDB(String login, String password) {
-        UsersAccountsHelper.insertUserCredentials(mDbHelper, login, password);
+        long userId = UsersAccountsHelper.insertUserCredentials(mDbHelper, login, password);
+        mUserPreferenceUtil.setUserId(userId);
         openMainActivity();
     }
 }

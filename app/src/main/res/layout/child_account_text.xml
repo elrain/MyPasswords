@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_login_hint_login"
+            android:textColor="@color/act_text_color"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="12"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_login_hint_login"
+            android:textColor="@color/act_text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_login_hint_password"
+            android:textColor="@color/act_text_color"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="12"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_login_hint_login"
+            android:textColor="@color/act_text_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="20">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_main_http_address"
+            android:textColor="@color/act_text_color"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tvHttpAddress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="12"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/act_default_margin"
+            android:text="@string/act_login_hint_login"
+            android:textColor="@color/act_text_color" />
+    </LinearLayout>
+
+</LinearLayout>

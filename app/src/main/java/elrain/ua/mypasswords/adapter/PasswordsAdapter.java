@@ -1,15 +1,15 @@
 package elrain.ua.mypasswords.adapter;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.util.List;
+
 import elrain.ua.mypasswords.R;
-import elrain.ua.mypasswords.dal.helper.AccountsHelper;
 import elrain.ua.mypasswords.dto.AccountInfo;
 
 /**
@@ -17,22 +17,22 @@ import elrain.ua.mypasswords.dto.AccountInfo;
  */
 public class PasswordsAdapter extends BaseExpandableListAdapter {
 
-    private Cursor mCursor;
     private LayoutInflater mInflater;
+    private List<AccountInfo> mAccountInfos;
 
-    public PasswordsAdapter(Context context, Cursor c) {
-        mCursor = c;
+    public PasswordsAdapter(Context context, List<AccountInfo> accountInfos) {
         mInflater = LayoutInflater.from(context);
+        mAccountInfos = accountInfos;
     }
 
     @Override
     public int getGroupCount() {
-        return mCursor.getCount() / mCursor.getColumnCount();
+        return mAccountInfos.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return mCursor.getColumnCount() - 1;
+        return 1;
     }
 
     @Override
@@ -62,16 +62,22 @@ public class PasswordsAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        if(null == convertView){
-            convertView = mInflater.inflate(R.layout.main_activity, null);
+        if (null == convertView) {
+            convertView = mInflater.inflate(R.layout.password_card_view, null);
         }
-        ((TextView)convertView.findViewById(R.id.tvName)).setText(mCursor.getString(mCursor.getColumnIndex(AccountsHelper.ACCOUNT_NAME)));
+        ((TextView) convertView.findViewById(R.id.tvName)).setText(mAccountInfos.get(groupPosition).getmAccountName());
         return convertView;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        return null;
+        if(null == convertView){
+            convertView = mInflater.inflate(R.layout.child_account_text, null);
+        }
+        ((TextView) convertView.findViewById(R.id.tvLogin)).setText(mAccountInfos.get(groupPosition).getmAccountLogin());
+        ((TextView) convertView.findViewById(R.id.tvPassword)).setText(mAccountInfos.get(groupPosition).getmAccountPassword());
+        ((TextView) convertView.findViewById(R.id.tvHttpAddress)).setText(mAccountInfos.get(groupPosition).getmHttpAddress());
+        return convertView;
     }
 
     @Override
