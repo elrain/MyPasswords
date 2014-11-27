@@ -1,15 +1,15 @@
 package elrain.ua.mypasswords.dal.helper;
 
+import android.content.ContentValues;
 import android.database.Cursor;
-
-import net.sqlcipher.database.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase;
 
 import elrain.ua.mypasswords.dal.MyPasswordsDBHelper;
 
 /**
  * Created by Denis on 11/9/2014.
  */
-public class AccountHelper {
+public class UsersAccountsHelper {
 
     public static final String TABLE = "accounts";
     public static final String ID = "_id";
@@ -35,7 +35,13 @@ public class AccountHelper {
     }
 
     public static void insertUserCredentials(MyPasswordsDBHelper helper, String login, String password) {
+        if (isCredentialsRight(helper, login, password)) {
+            return;
+        }
         SQLiteDatabase db = helper.getWritableDatabase();
-        db.execSQL("INSERT INTO " + TABLE + " ( " + LOGIN + ", " + PASSWORD + " ) VALUES ('" + login + "', '" + password + "')");
+        ContentValues cv = new ContentValues();
+        cv.put(LOGIN, login);
+        cv.put(PASSWORD, password);
+        db.insert(TABLE, null, cv);
     }
 }

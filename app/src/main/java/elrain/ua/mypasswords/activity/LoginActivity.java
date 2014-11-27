@@ -2,11 +2,11 @@ package elrain.ua.mypasswords.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -14,7 +14,7 @@ import elrain.ua.mypasswords.R;
 import elrain.ua.mypasswords.activity.helper.DialogGetterHelper;
 import elrain.ua.mypasswords.activity.helper.TestClass;
 import elrain.ua.mypasswords.dal.MyPasswordsDBHelper;
-import elrain.ua.mypasswords.dal.helper.AccountHelper;
+import elrain.ua.mypasswords.dal.helper.UsersAccountsHelper;
 import elrain.ua.mypasswords.util.PreferenceUtil;
 import elrain.ua.mypasswords.util.ScreenOrientationUtil;
 
@@ -86,11 +86,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void doLoginWithoutInsertToDB(String login, String password) {
+        openMainActivity();
+    }
 
-        Toast.makeText(this, Boolean.toString(AccountHelper.isCredentialsRight(mDbHelper, login, password)), Toast.LENGTH_SHORT).show();
+    private void openMainActivity() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
     private void doLoginAndInsertToDB(String login, String password) {
-        AccountHelper.insertUserCredentials(mDbHelper, login, password);
+        UsersAccountsHelper.insertUserCredentials(mDbHelper, login, password);
+        openMainActivity();
     }
 }

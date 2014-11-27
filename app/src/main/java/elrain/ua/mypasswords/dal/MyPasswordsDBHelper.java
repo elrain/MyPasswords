@@ -1,14 +1,12 @@
 package elrain.ua.mypasswords.dal;
 
 import android.content.Context;
-
-import net.sqlcipher.database.SQLiteDatabase;
-import net.sqlcipher.database.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import javax.inject.Singleton;
 
-import elrain.ua.mypasswords.dal.helper.AccountHelper;
-import elrain.ua.mypasswords.util.StringXorUtil;
+import elrain.ua.mypasswords.dal.helper.UsersAccountsHelper;
 
 /**
  * Created by Denis on 11/9/2014.
@@ -18,7 +16,6 @@ public class MyPasswordsDBHelper extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "my_pass.db";
-    private static final String DB_PASSWORD = "";
     private static MyPasswordsDBHelper mInstance;
 
     public MyPasswordsDBHelper(Context context) {
@@ -29,23 +26,13 @@ public class MyPasswordsDBHelper extends SQLiteOpenHelper {
         if (null == mInstance) {
             mInstance = new MyPasswordsDBHelper(context);
         }
-        SQLiteDatabase.loadLibs(context);
         return mInstance;
     }
 
-    public synchronized SQLiteDatabase getWritableDatabase() {
-        return super.getWritableDatabase(StringXorUtil.XorString(DB_PASSWORD));
-//        return super.getWritableDatabase("");
-    }
-
-    public synchronized SQLiteDatabase getReadableDatabase() {
-        return super.getReadableDatabase(StringXorUtil.XorString(DB_PASSWORD));
-//        return super.getReadableDatabase("");
-    }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        AccountHelper.createTable(sqLiteDatabase);
+        UsersAccountsHelper.createTable(sqLiteDatabase);
     }
 
     @Override

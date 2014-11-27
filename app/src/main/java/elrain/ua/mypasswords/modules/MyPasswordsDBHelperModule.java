@@ -6,18 +6,17 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import elrain.ua.mypasswords.activity.LoginActivity;
 import elrain.ua.mypasswords.dal.MyPasswordsDBHelper;
 
 /**
  * Created by Denis on 11/9/2014.
  */
-@Module( library = true, complete = false)
+@Module(library = true, complete = false)
 public class MyPasswordsDBHelperModule {
 
     private final Context mContext;
 
-    public MyPasswordsDBHelperModule(Context context){
+    public MyPasswordsDBHelperModule(Context context) {
         mContext = context;
     }
 

@@ -1,8 +1,6 @@
 package elrain.ua.mypasswords.activity;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.res.Configuration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +16,7 @@ import elrain.ua.mypasswords.modules.TestModule;
 public class MyPasswordsApp extends Application {
 
     protected ObjectGraph mGraph;
+
     protected List<Object> getModules() {
         return Arrays.asList(
                 new AppContextModule(this),
@@ -33,13 +32,13 @@ public class MyPasswordsApp extends Application {
     }
 
     public void inject(Object object) {
-        if(mGraph == null){
+        if (mGraph == null) {
             mGraph = ObjectGraph.create(getModules().toArray());
         }
         mGraph.inject(object);
     }
 
-    public <T> T createObject(Class<T> c){
+    public <T> T createObject(Class<T> c) {
         return mGraph.get(c);
     }
 }
