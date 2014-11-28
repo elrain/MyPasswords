@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -14,8 +15,8 @@ import elrain.ua.mypasswords.R;
 import elrain.ua.mypasswords.activity.helper.DialogGetterHelper;
 import elrain.ua.mypasswords.dal.MyPasswordsDBHelper;
 import elrain.ua.mypasswords.dal.helper.UsersAccountsHelper;
-import elrain.ua.mypasswords.util.UserPreferenceUtil;
 import elrain.ua.mypasswords.util.ScreenOrientationUtil;
+import elrain.ua.mypasswords.util.UserPreferenceUtil;
 
 
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -85,7 +86,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void doLoginWithoutInsertToDB(String login, String password) {
-        openMainActivity();
+        if (UsersAccountsHelper.isCredentialsRight(mDbHelper.getReadableDatabase(), login, password))
+            openMainActivity();
+        else
+            Toast.makeText(this, "Incorrect credentials", Toast.LENGTH_SHORT).show();
     }
 
     private void openMainActivity() {
@@ -94,7 +98,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void doLoginAndInsertToDB(String login, String password) {
-        long userId = UsersAccountsHelper.insertUserCredentials(mDbHelper, login, password);
+        long userId = UsersAccountsHelper.insertUserCredentials(mDbHelper.getWritableDatabase(), login, password);
         mUserPreferenceUtil.setUserId(userId);
         openMainActivity();
     }

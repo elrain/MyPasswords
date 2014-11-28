@@ -21,8 +21,7 @@ public class UsersAccountsHelper {
         sqLiteDatabase.execSQL(CREATE_TABLE);
     }
 
-    public static boolean isCredentialsRight(MyPasswordsDBHelper helper, String login, String password) {
-        SQLiteDatabase db = helper.getReadableDatabase();
+    public static boolean isCredentialsRight(SQLiteDatabase db, String login, String password) {
         Cursor cursor = null;
         try {
             cursor = db.query(TABLE, new String[]{ID}, LOGIN + " = ? AND " + PASSWORD + " = ?", new String[]{login, password}, null, null, null);
@@ -34,11 +33,10 @@ public class UsersAccountsHelper {
         }
     }
 
-    public static long insertUserCredentials(MyPasswordsDBHelper helper, String login, String password) {
-        if (isCredentialsRight(helper, login, password)) {
+    public static long insertUserCredentials(SQLiteDatabase db, String login, String password) {
+        if (isCredentialsRight(db, login, password)) {
             return -1;
         }
-        SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(LOGIN, login);
         cv.put(PASSWORD, password);

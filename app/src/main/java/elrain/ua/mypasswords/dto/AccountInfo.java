@@ -4,14 +4,17 @@ package elrain.ua.mypasswords.dto;
  * Created by Denys.Husher on 26.11.2014.
  */
 public class AccountInfo {
+
+    private long mId;
     private String mHttpAddress;
     private String mAccountName;
     private String mAccountLogin;
     private String mAccountPassword;
 
-    public AccountInfo(){}
+    public AccountInfo() {
+    }
 
-    public AccountInfo(String name, String login, String password, String http){
+    public AccountInfo(String name, String login, String password, String http) {
         this.mHttpAddress = http;
         this.mAccountName = name;
         this.mAccountLogin = login;
@@ -48,5 +51,13 @@ public class AccountInfo {
 
     public void setmAccountPassword(String mAccountPassword) {
         this.mAccountPassword = mAccountPassword;
+    }
+
+    public long getmId() {
+        return mId;
+    }
+
+    public void setmId(long mId) {
+        this.mId = mId;
     }
 }

@@ -55,10 +55,11 @@ public final class AccountsHelper {
         Cursor cursor = null;
         List<AccountInfo> accountInfos = new ArrayList<AccountInfo>();
         try {
-            cursor = db.query(TABLE, new String[]{ACCOUNT_NAME, ACCOUNT_LOGIN, ACCOUNT_HTTP_ADDRESS, ACCOUNT_PASSWORDS}, USER_ID + " = ?", new String[]{String.valueOf(userId)}, null, null, null);
+            cursor = db.query(TABLE, new String[]{ID, ACCOUNT_NAME, ACCOUNT_LOGIN, ACCOUNT_HTTP_ADDRESS, ACCOUNT_PASSWORDS}, USER_ID + " = ?", new String[]{String.valueOf(userId)}, null, null, null);
             while (cursor.moveToNext()) {
-                AccountInfo ai = new AccountInfo(cursor.getString(cursor.getColumnIndex(ACCOUNT_NAME)), cursor.getString(cursor.getColumnIndex(ACCOUNT_LOGIN)), cursor.getString(cursor.getColumnIndex(ACCOUNT_PASSWORDS)),
-                        cursor.getString(cursor.getColumnIndex(ACCOUNT_HTTP_ADDRESS)));
+                AccountInfo ai = new AccountInfo(cursor.getString(cursor.getColumnIndex(ACCOUNT_NAME)), cursor.getString(cursor.getColumnIndex(ACCOUNT_LOGIN)),
+                        cursor.getString(cursor.getColumnIndex(ACCOUNT_PASSWORDS)), cursor.getString(cursor.getColumnIndex(ACCOUNT_HTTP_ADDRESS)));
+                ai.setmId(cursor.getLong(cursor.getColumnIndex(ID)));
                 accountInfos.add(ai);
             }
         } finally {
@@ -66,6 +67,36 @@ public final class AccountsHelper {
                 cursor.close();
         }
         return accountInfos;
+    }
+
+    public static AccountInfo getAccountByRowId(SQLiteDatabase db, long userId, long rowId) {
+        Cursor cursor = null;
+        try {
+            cursor = db.query(TABLE, new String[]{ACCOUNT_HTTP_ADDRESS, ACCOUNT_LOGIN, ACCOUNT_PASSWORDS, ACCOUNT_NAME}, USER_ID + " = ? AND " + ID + " = ?", new String[]{String.valueOf(userId), String.valueOf(rowId)}, null, null, null);
+            if (cursor.moveToNext()) {
+                AccountInfo accountInfo = new AccountInfo(cursor.getString(cursor.getColumnIndex(ACCOUNT_NAME)), cursor.getString(cursor.getColumnIndex(ACCOUNT_LOGIN)), cursor.getString(cursor.getColumnIndex(ACCOUNT_PASSWORDS)),
+                        cursor.getString(cursor.getColumnIndex(ACCOUNT_HTTP_ADDRESS)));
+                return accountInfo;
+            }
+        } finally {
+            if (null != cursor) {
+                cursor.close();
+            }
+        }
+        return new AccountInfo();
+    }
+
+    public static void updateAccountInfo(SQLiteDatabase db, long userId, AccountInfo accountInfo) {
+        ContentValues cv = new ContentValues();
+        cv.put(ACCOUNT_NAME, accountInfo.getmAccountName());
+        cv.put(ACCOUNT_LOGIN, accountInfo.getmAccountLogin());
+        cv.put(ACCOUNT_PASSWORDS, accountInfo.getmAccountPassword());
+        cv.put(ACCOUNT_HTTP_ADDRESS, accountInfo.getmHttpAddress());
+        db.update(TABLE, cv, USER_ID + " = ? AND " + ID + " = ? ", new String[]{String.valueOf(userId), String.valueOf(accountInfo.getmId())});
+    }
+
+    public static void deleteAccountForUser(SQLiteDatabase db, long userId, long rowId) {
+        db.delete(TABLE, USER_ID + " = ? AND " + ID + " = ?", new String[]{String.valueOf(userId), String.valueOf(rowId)});
     }
 
 }

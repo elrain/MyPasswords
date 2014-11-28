@@ -3,6 +3,7 @@ package elrain.ua.mypasswords.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import javax.inject.Inject;
@@ -20,6 +21,13 @@ import elrain.ua.mypasswords.util.UserPreferenceUtil;
  */
 public class AccountInfoActivity extends Activity implements View.OnClickListener {
 
+    private Button mBtnAddEdit;
+    private EditText etLogin;
+    private EditText etPassword;
+    private EditText etHttpAddress;
+    private EditText etName;
+    private AccountInfo mAccountInfo = new AccountInfo();
+
     @Inject
     MyPasswordsDBHelper mMyPasswordsDBHelper;
     @Inject
@@ -30,7 +38,23 @@ public class AccountInfoActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_info);
         ((MyPasswordsApp) this.getApplicationContext()).inject(this);
-        findViewById(R.id.btnAdd).setOnClickListener(this);
+        mBtnAddEdit = (Button) findViewById(R.id.btnAdd);
+        etLogin = (EditText) findViewById(R.id.etLogin);
+        etPassword = (EditText) findViewById(R.id.etPassword);
+        etHttpAddress = (EditText) findViewById(R.id.etHttpAddress);
+        etName = (EditText) findViewById(R.id.etName);
+        long rowId = getIntent().getLongExtra(AccountsHelper.ID, -1);
+        if (rowId != -1) {
+            setTitle(getString(R.string.act_main_add_edit_account_title));
+            mBtnAddEdit.setText(getString(R.string.act_main_btn_edit_account));
+            mAccountInfo = AccountsHelper.getAccountByRowId(mMyPasswordsDBHelper.getReadableDatabase(), mUserPreferenceUtil.getUserId(), rowId);
+            mAccountInfo.setmId(rowId);
+            etHttpAddress.setText(mAccountInfo.getmHttpAddress());
+            etLogin.setText(mAccountInfo.getmAccountLogin());
+            etPassword.setText(mAccountInfo.getmAccountPassword());
+            etName.setText(mAccountInfo.getmAccountName());
+        }
+        mBtnAddEdit.setOnClickListener(this);
         findViewById(R.id.btnCancel).setOnClickListener(this);
     }
 
@@ -38,21 +62,17 @@ public class AccountInfoActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnAdd:
-                EditText etLogin = (EditText) findViewById(R.id.etLogin);
-                EditText etPassword = (EditText) findViewById(R.id.etPassword);
-                EditText etHttpAddress = (EditText) findViewById(R.id.etHttpAddress);
-                EditText etName = (EditText) findViewById(R.id.etName);
-
-                String login = etLogin.getText().toString();
-                String password = etPassword.getText().toString();
-
-                if (login.isEmpty()) {
-                    etLogin.setError(getString(R.string.act_login_form_error));
-                } else if (password.isEmpty()) {
-                    etPassword.setError(getString(R.string.act_login_form_error));
-                } else {
-                    AccountInfo accountInfo = new AccountInfo(etName.getText().toString(), login, password, etHttpAddress.getText().toString());
-                    AccountsHelper.addNewAccount(accountInfo, mMyPasswordsDBHelper.getWritableDatabase(), mUserPreferenceUtil.getUserId());
+                if (isNotEmptyRows()) {
+                    if (mAccountInfo.getmId() == 0) {
+                        mAccountInfo = new AccountInfo(etName.getText().toString(), etLogin.getText().toString(), etPassword.getText().toString(), etHttpAddress.getText().toString());
+                        AccountsHelper.addNewAccount(mAccountInfo, mMyPasswordsDBHelper.getWritableDatabase(), mUserPreferenceUtil.getUserId());
+                    } else{
+                        mAccountInfo.setmAccountLogin(etLogin.getText().toString());
+                        mAccountInfo.setmHttpAddress(etHttpAddress.getText().toString());
+                        mAccountInfo.setmAccountPassword(etPassword.getText().toString());
+                        mAccountInfo.setmAccountName(etName.getText().toString());
+                        AccountsHelper.updateAccountInfo(mMyPasswordsDBHelper.getWritableDatabase(), mUserPreferenceUtil.getUserId(), mAccountInfo);
+                    }
                     EventBus.getDefault().post(new RefreshAccountsMessage());
                     this.finish();
                 }
@@ -63,5 +83,16 @@ public class AccountInfoActivity extends Activity implements View.OnClickListene
             default:
                 break;
         }
+    }
+
+    private boolean isNotEmptyRows() {
+        if (etLogin.getText().toString().isEmpty()) {
+            etLogin.setError(getString(R.string.act_login_form_error));
+            return false;
+        } else if (etPassword.getText().toString().isEmpty()) {
+            etPassword.setError(getString(R.string.act_login_form_error));
+            return false;
+        }
+        return true;
     }
 }

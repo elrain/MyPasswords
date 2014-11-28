@@ -14,8 +14,10 @@
     <string name="act_login_form_error">Empty field</string>
 
     <string name="act_main_add_new_account_title">Add New Account</string>
+    <string name="act_main_add_edit_account_title">Edit Account</string>
     <string name="act_main_http_address">Http address</string>
     <string name="act_main_btn_add_new_account">Add</string>
+    <string name="act_main_btn_edit_account">Edit</string>
     <string name="act_main_account_name">Name</string>
 
     <string name="dialog_btn_cancel_text">Cancel</string>

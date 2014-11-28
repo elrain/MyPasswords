@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 
 import javax.inject.Inject;
@@ -39,10 +41,9 @@ public class MainActivity extends Activity {
         EventBus.getDefault().register(this);
         ((MyPasswordsApp) this.getApplicationContext()).inject(this);
         ScreenOrientationUtil.setScreenOrientation(MainActivity.this);
-        mPasswordsAdapter = new PasswordsAdapter(MainActivity.this, AccountsHelper.getAccountsForUser(mMyPasswordsDBHelper.getReadableDatabase(), mUserPreferenceUtil.getUserId()));
+        mPasswordsAdapter = new PasswordsAdapter(MainActivity.this, AccountsHelper.getAccountsForUser(mMyPasswordsDBHelper.getReadableDatabase(), mUserPreferenceUtil.getUserId()), mMyPasswordsDBHelper, mUserPreferenceUtil);
         mExpandableListView = (ExpandableListView) findViewById(R.id.elvPasswords);
         mExpandableListView.setAdapter(mPasswordsAdapter);
-
         getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.action_bar_bg));
     }
 
@@ -53,7 +54,7 @@ public class MainActivity extends Activity {
     }
 
     public void onEvent(RefreshAccountsMessage message) {
-        mPasswordsAdapter = new PasswordsAdapter(MainActivity.this, AccountsHelper.getAccountsForUser(mMyPasswordsDBHelper.getReadableDatabase(), mUserPreferenceUtil.getUserId()));
+        mPasswordsAdapter = new PasswordsAdapter(MainActivity.this, AccountsHelper.getAccountsForUser(mMyPasswordsDBHelper.getReadableDatabase(), mUserPreferenceUtil.getUserId()), mMyPasswordsDBHelper, mUserPreferenceUtil);
         mExpandableListView.setAdapter(mPasswordsAdapter);
     }
 
