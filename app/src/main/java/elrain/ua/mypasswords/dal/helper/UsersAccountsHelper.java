@@ -2,9 +2,8 @@ package elrain.ua.mypasswords.dal.helper;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import elrain.ua.mypasswords.dal.MyPasswordsDBHelper;
+import net.sqlcipher.database.SQLiteDatabase;
 
 /**
  * Created by Denis on 11/9/2014.

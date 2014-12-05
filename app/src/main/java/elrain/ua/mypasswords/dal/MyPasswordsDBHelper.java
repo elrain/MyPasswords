@@ -1,13 +1,15 @@
 package elrain.ua.mypasswords.dal;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+
+import net.sqlcipher.database.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteOpenHelper;
 
 import javax.inject.Singleton;
 
 import elrain.ua.mypasswords.dal.helper.AccountsHelper;
 import elrain.ua.mypasswords.dal.helper.UsersAccountsHelper;
+import elrain.ua.mypasswords.util.StringXorUtil;
 
 /**
  * Created by Denis on 11/9/2014.
@@ -17,6 +19,7 @@ public class MyPasswordsDBHelper extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "my_pass.db";
+    private static final String DB_PASS = "g3uv{.d/aN^v;YSq]}Nq,m~M}sD&yA=CKkgMV{xN";
     private static MyPasswordsDBHelper mInstance;
 
     public MyPasswordsDBHelper(Context context) {
@@ -27,6 +30,7 @@ public class MyPasswordsDBHelper extends SQLiteOpenHelper {
         if (null == mInstance) {
             mInstance = new MyPasswordsDBHelper(context);
         }
+        SQLiteDatabase.loadLibs(context);
         return mInstance;
     }
 
@@ -40,5 +44,15 @@ public class MyPasswordsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
 
+    }
+
+    public synchronized SQLiteDatabase getWritableDatabase() {
+        return super.getWritableDatabase(StringXorUtil.XorString(DB_PASS));
+//        return super.getWritableDatabase("");
+    }
+
+    public synchronized SQLiteDatabase getReadableDatabase() {
+        return super.getReadableDatabase(StringXorUtil.XorString(DB_PASS));
+//        return super.getReadableDatabase("");
     }
 }

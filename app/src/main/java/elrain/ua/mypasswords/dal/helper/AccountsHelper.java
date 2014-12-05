@@ -3,7 +3,8 @@ package elrain.ua.mypasswords.dal.helper;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public final class AccountsHelper {
     /**
      * Call this method to create <i>Accounts</i> table
      *
-     * @param db instance of {@link android.database.sqlite.SQLiteDatabase}
+     * @param db writable instance of {@link net.sqlcipher.database.SQLiteDatabase}
      */
     public static void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE);
@@ -38,7 +39,7 @@ public final class AccountsHelper {
      * Insert new account into DB for user
      *
      * @param accountInfo information about account
-     * @param db          instance of {@link android.database.sqlite.SQLiteDatabase}
+     * @param db          writable instance of {@link net.sqlcipher.database.SQLiteDatabase}
      * @param userId      ID of user
      */
     public static void addNewAccount(AccountInfo accountInfo, SQLiteDatabase db, long userId) {
@@ -51,6 +52,13 @@ public final class AccountsHelper {
         db.insert(TABLE, null, cv);
     }
 
+    /**
+     * This method return accounts for user with some id
+     *
+     * @param db     readable instance of {@link net.sqlcipher.database.SQLiteDatabase}
+     * @param userId
+     * @return
+     */
     public static List<AccountInfo> getAccountsForUser(SQLiteDatabase db, long userId) {
         Cursor cursor = null;
         List<AccountInfo> accountInfos = new ArrayList<AccountInfo>();
