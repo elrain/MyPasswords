@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyPasswords</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="act_login_hint_login">Лонги</string>
+    <string name="act_login_hint_password">Пароль</string>
+
+    <string name="act_login_text_btn_login">Войти</string>
+    <string name="act_login_top_text">MyPasswords</string>
+
+    <string name="act_login_form_error">Пустое поле</string>
+
+    <string name="act_main_add_new_account_title">Создать новый акаунт</string>
+    <string name="act_main_add_edit_account_title">EИзменить акаунт</string>
+    <string name="act_main_http_address">Http аддрес</string>
+    <string name="act_main_btn_add_new_account">Добавить</string>
+    <string name="act_main_btn_edit_account">Изменить</string>
+    <string name="act_main_account_name">Имя</string>
+
+    <string name="dialog_btn_cancel_text">Отменить</string>
+    <string name="dialog_btn_create_user_text">Создать пользователя</string>
+    <string name="dialog_btn_ok_text">OK</string>
+
+    <string name="dialog_title_create_user">Создать нового пользователя</string>
+
+    <string name="dialog_message_first_start">Приложение было запущенно в первый раз. Для создания нового пользователя введите логин и пароль
+        для этого пользователя и нажмите кнопку \"Войти\".</string>
+
+</resources>
