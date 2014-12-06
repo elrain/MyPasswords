@@ -4,4 +4,6 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light">
     </style>
     <style name="LoginActivityStyle" parent="android:Theme.Holo.Light.NoActionBar"></style>
+
+    <style name="DialogStyleForActivity" parent="android:Theme.Holo.Light.Dialog"></style>
 </resources>

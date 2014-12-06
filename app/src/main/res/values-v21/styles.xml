@@ -4,4 +4,6 @@
     <style name="AppTheme" parent="android:Theme.Material.Light">
     </style>
     <style name="LoginActivityStyle" parent="android:Theme.Material.Light.NoActionBar"></style>
+
+    <style name="DialogStyleForActivity" parent="android:Theme.Material.Light.Dialog"></style>
 </resources>

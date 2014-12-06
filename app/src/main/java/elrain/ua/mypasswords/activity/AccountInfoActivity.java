@@ -66,7 +66,7 @@ public class AccountInfoActivity extends Activity implements View.OnClickListene
                     if (mAccountInfo.getmId() == 0) {
                         mAccountInfo = new AccountInfo(etName.getText().toString(), etLogin.getText().toString(), etPassword.getText().toString(), etHttpAddress.getText().toString());
                         AccountsHelper.addNewAccount(mAccountInfo, mMyPasswordsDBHelper.getWritableDatabase(), mUserPreferenceUtil.getUserId());
-                    } else{
+                    } else {
                         mAccountInfo.setmAccountLogin(etLogin.getText().toString());
                         mAccountInfo.setmHttpAddress(etHttpAddress.getText().toString());
                         mAccountInfo.setmAccountPassword(etPassword.getText().toString());
@@ -86,7 +86,9 @@ public class AccountInfoActivity extends Activity implements View.OnClickListene
     }
 
     private boolean isNotEmptyRows() {
-        if (etLogin.getText().toString().isEmpty()) {
+        if (etName.getText().toString().isEmpty()) {
+            etName.setError(getString(R.string.act_login_form_error));
+        } else if (etLogin.getText().toString().isEmpty()) {
             etLogin.setError(getString(R.string.act_login_form_error));
             return false;
         } else if (etPassword.getText().toString().isEmpty()) {

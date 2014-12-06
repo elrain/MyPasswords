@@ -56,8 +56,8 @@ public final class AccountsHelper {
      * This method return accounts for user with some id
      *
      * @param db     readable instance of {@link net.sqlcipher.database.SQLiteDatabase}
-     * @param userId
-     * @return
+     * @param userId id of current user
+     * @return collection of {@link elrain.ua.mypasswords.dto.AccountInfo}
      */
     public static List<AccountInfo> getAccountsForUser(SQLiteDatabase db, long userId) {
         Cursor cursor = null;
@@ -106,5 +106,4 @@ public final class AccountsHelper {
     public static void deleteAccountForUser(SQLiteDatabase db, long userId, long rowId) {
         db.delete(TABLE, USER_ID + " = ? AND " + ID + " = ?", new String[]{String.valueOf(userId), String.valueOf(rowId)});
     }
-
 }
